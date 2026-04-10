@@ -1,63 +1,40 @@
-class Shop:
-    @staticmethod
-    def show_menu(cat):
-        print("=" * 50)
-        print("Вы в зоомагазине")
-        print("=" * 50)
-        print(f"У вас {cat.money} монет")
-        print("1. Купить игрушку - 15 монет")
-        print("2. Купить Dreamies - 10 монет")
-        print("3. Купить кошачью мяту - 20 монет")
+"""Модуль зоомагазина."""
+from stats import update_stats
 
-        shop_choice = input("Выберите товар от 1 до 3: ")
 
-        if shop_choice == "1":
-            if cat.money >= 15:
-                cat.money -= 15
-                cat.happiness += 25
-                cat.love += 10
-                cat.happiness = cat.check_bounds(cat.happiness)
-                cat.love = cat.check_bounds(cat.love)
-                print("=" * 50)
-                print("Вы купили игрушку. -15 монет, +25 счастья, +10 любви")
-                print(f"Теперь монеты: {cat.money}, счастье: {cat.happiness}, любовь: {cat.love}")
-            else:
-                print("=" * 50)
-                print("Недостаточно монет!")
+def show_menu(cat):
+    """Показать меню магазина."""
+    print("=" * 50)
+    print("Вы в зоомагазине")
+    print("=" * 50)
+    print(f"У вас {cat['money']} монет")
+    print("1. Купить игрушку - 15 монет")
+    print("2. Купить Dreamies - 10 монет")
+    print("3. Купить кошачью мяту - 20 монет")
 
-        elif shop_choice == "2":
-            if cat.money >= 10:
-                cat.money -= 10
-                cat.happiness += 10
-                cat.satiety += 25
-                cat.love += 10
-                cat.happiness = cat.check_bounds(cat.happiness)
-                cat.satiety = cat.check_bounds(cat.satiety)
-                cat.love = cat.check_bounds(cat.love)
-                print("=" * 50)
-                print("Вы купили Dreamies. -10 монет, +10 счастья, +25 сытости, +10 любви")
-                print(f"Теперь монеты: {cat.money}, счастье: {cat.happiness}, сытость: {cat.satiety}, любовь: {cat.love}")
-            else:
-                print("=" * 50)
-                print("Недостаточно монет!")
+    choice = input("Выберите товар от 1 до 3: ")
 
-        elif shop_choice == "3":
-            if cat.money >= 20:
-                cat.money -= 20
-                cat.happiness += 30
-                cat.satiety += 5
-                cat.love += 20
-                cat.health -= 5
-                cat.happiness = cat.check_bounds(cat.happiness)
-                cat.satiety = cat.check_bounds(cat.satiety)
-                cat.love = cat.check_bounds(cat.love)
-                cat.health = cat.check_bounds(cat.health)
-                print("=" * 50)
-                print("Вы купили кошачью мяту. -20 монет, +30 счастья, +5 сытости, +20 любви, -5 здоровья")
-                print(f"Теперь монеты: {cat.money}, счастье: {cat.happiness}, сытость: {cat.satiety}, любовь: {cat.love}, здоровье: {cat.health}")
-            else:
-                print("=" * 50)
-                print("Недостаточно монет!")
-        else:
-            print("=" * 50)
-            print("Введите число от 1 до 3")
+    items = {
+        "1": {"name": "игрушку", "price": 15, "happiness": 25, "love": 10},
+        "2": {"name": "Dreamies", "price": 10, "happiness": 10, "satiety": 25, "love": 10},
+        "3": {"name": "кошачью мяту", "price": 20, "happiness": 30, "satiety": 5, "love": 20, "health": -5},
+    }
+
+    if choice not in items:
+        print("Введите число от 1 до 3")
+        return
+
+    item = items[choice]
+
+    if cat["money"] < item["price"]:
+        print("Недостаточно монет!")
+        return
+
+    cat["money"] -= item["price"]
+    cat["happiness"] += item.get("happiness", 0)
+    cat["satiety"] += item.get("satiety", 0)
+    cat["love"] += item.get("love", 0)
+    cat["health"] += item.get("health", 0)
+    update_stats(cat)
+
+    print(f"Вы купили {item['name']}. -{item['price']} монет")
