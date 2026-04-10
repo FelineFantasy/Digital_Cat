@@ -54,7 +54,6 @@ def show_stats(cat):
 
 # Маппинг действий
 ACTIONS = {
-    "0": lambda c: False,           # выход
     "1": feed,
     "2": pet,
     "3": play,
