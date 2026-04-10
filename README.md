@@ -3,47 +3,81 @@
 [![Python Version](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-Виртуальный питомец — симулятор кота, написанный на Python. Заботьтесь о своём коте, играйте с ним, покупайте вкусняшки и следите за его здоровьем!
+A virtual pet — cat simulator written in Python. Take care of your cat, play with it, buy treats, and monitor its health!
 
-## 📋 Содержание
-- [Описание](#описание)
-- [Как играть](#как-играть)
-- [Установка](#установка)
-- [Управление](#управление)
-- [Секретное меню](#секретное-меню)
-- [Файлы проекта](#файлы-проекта)
-- [Требования](#требования)
-- [Автор](#автор)
+## 📋 Table of Contents
+- [Description](#description)
+- [How to Play](#how-to-play)
+- [Installation](#installation)
+- [Controls](#controls)
+- [Secret Menu](#secret-menu)
+- [Project Files](#project-files)
+- [Requirements](#requirements)
+- [Author](#author)
 
-## 📝 Описание
+## 📝 Description
 
-**Digital Cat** — это текстовая игра, где вы заводите виртуального кота и ухаживаете за ним. У кота есть характеристики:
-- 🍖 **Сытость** — кот хочет есть
-- 😊 **Счастье** — кот хочет играть
-- ⚡ **Энергия** — кот устаёт
-- ❤️ **Здоровье** — кот может заболеть
-- 💰 **Монеты** — на них можно покупать товары
-- 💕 **Любовь** — кот привязывается к вам
+**Digital Cat** is a text-based game where you adopt a virtual cat and take care of it. Your cat has several characteristics:
+- 🍖 **Hunger** — The cat needs food
+- 😊 **Happiness** — The cat wants to play
+- ⚡ **Energy** — The cat gets tired
+- ❤️ **Health** — The cat can get sick
+- 💰 **Coins** — Can be used to buy items
+- 💕 **Love** — The cat grows attached to you
 
-Каждый день происходят случайные события, кот может найти монеты, испачкать лоток или просто мяукнуть.
+Random events happen every day — the cat might find coins, dirty the litter box, or just meow.
 
-## 🎮 Как играть
+## 🎮 How to Play
 
-1. Запустите игру
-2. Придумайте имя своему питомцу
-3. Выбирайте действия из меню
-4. Следите, чтобы кот не умер от голода или болезней
+1. Run the game
+2. Name your pet
+3. Choose actions from the menu
+4. Keep the cat from dying of hunger or illness
 
-## ⚙️ Установка
+## ⚙️ Installation
 
-### Вариант 1: Скачать архив
-1. Нажмите зелёную кнопку **"Code"** на этой странице
-2. Выберите **"Download ZIP"**
-3. Распакуйте архив
-4. Запустите игру: `python __main__.py`
+### Option 1: Download ZIP
+1. Click the green **"Code"** button on this page
+2. Select **"Download ZIP"**
+3. Extract the archive
+4. Run the game: `python __main__.py`
 
-### Вариант 2: Клонировать репозиторий
+### Option 2: Clone repository
 ```bash
 git clone https://github.com/FelineFantasy/Digital_Cat.git
 cd Digital_Cat
 python __main__.py
+```
+
+## 🎮 Controls
+
+The main menu provides several actions:
+- Feed the cat
+- Play with the cat
+- Let the cat sleep
+- Check health
+- Buy treats
+- And more!
+
+## 🔐 Secret Menu
+
+There's a hidden menu with special features. Try to find it!
+
+## 📁 Project Files
+
+```
+Digital_Cat/
+├── __main__.py          # Main program file
+├── requirements.txt     # Dependencies (if any)
+└── README.md            # Documentation
+```
+
+## 📋 Requirements
+
+- Python 3.x
+
+## 👤 Author
+
+**FelineFantasy**
+
+License: MIT
