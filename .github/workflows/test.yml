@@ -26,4 +26,4 @@ jobs:
     - name: Проверяем, что игра запускается (Эмуляция игрока)
       shell: bash
       run: |
-        echo "FelineFantasy" | timeout 10s python Digital_Cat.py
+        printf "FelineFantasy\n0\n" | timeout 10s python Digital_Cat.py
