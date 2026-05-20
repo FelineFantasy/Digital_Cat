@@ -51,16 +51,26 @@ jobs:
       run: |
         if [ "${{ matrix.os }}" = "windows-latest" ]; then
           pyinstaller --onefile --name "Digital_Cat_Windows" Digital_Cat.py
+          echo "ASSET_NAME=Digital_Cat_Windows.exe" >> $GITHUB_ENV
         elif [ "${{ matrix.os }}" = "macos-latest" ]; then
           pyinstaller --onefile --name "Digital_Cat_macOS" Digital_Cat.py
+          echo "ASSET_NAME=Digital_Cat_macOS" >> $GITHUB_ENV
         else
           pyinstaller --onefile --name "Digital_Cat_Linux" Digital_Cat.py
+          echo "ASSET_NAME=Digital_Cat_Linux" >> $GITHUB_ENV
         fi
-      
+
+    - name: Подготовить бинарник к релизу (убираем .zip)
+      shell: bash
+      run: |
+        mkdir -p release_assets
+        cp dist/* release_assets/
+        echo "ASSET_FILE=release_assets/$(ls release_assets)" >> $GITHUB_ENV
+
     - name: Загружаем результат в Релиз
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: nightly
-        files: dist/Digital_Cat_${{ matrix.os }}*
+        tag_name: ${{ github.ref_name }}
+        files: release_assets/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
