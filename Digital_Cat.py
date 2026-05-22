@@ -12,6 +12,7 @@ import time
 import zlib
 from typing import TypedDict
 
+
 def get_base_dir():
     """Возвращает базовую директорию для сохранения файлов."""
     if getattr(sys, 'frozen', False):
@@ -19,17 +20,20 @@ def get_base_dir():
     else:
         return os.path.dirname(os.path.abspath(__file__))
 
+
 def get_save_path():
     """Возвращает путь к файлу сохранения."""
     base_dir = get_base_dir()
     os.makedirs(base_dir, exist_ok=True)
     return os.path.join(base_dir, "save.dat")
 
+
 def get_log_path():
     """Возвращает путь к лог-файлу."""
     base_dir = get_base_dir()
     os.makedirs(base_dir, exist_ok=True)
     return os.path.join(base_dir, "log.txt")
+
 
 SAVE_FILE = get_save_path()
 LOG_FILE = get_log_path()
@@ -47,14 +51,22 @@ VERSION = "v3.0.1"
 AUTHOR = "Тимур (FelineFantasy)"
 LICENSE = "MIT"
 
+_LOG_BUFFER = []
+_LOG_LAST_WRITE = 0
+
 
 def log_to_file(level: str, msg: str):
-    """Запись в лог-файл."""
-    try:
-        with open(LOG_FILE, "a", encoding="utf-8") as f:
-            f.write(f"[{level}] {time.strftime('%H:%M:%S')} {msg}\n")
-    except Exception:
-        pass
+    global _LOG_BUFFER, _LOG_LAST_WRITE
+    _LOG_BUFFER.append(f"[{level}] {time.strftime('%H:%M:%S')} {msg}\n")
+    now = time.time()
+    if len(_LOG_BUFFER) >= 10 or now - _LOG_LAST_WRITE >= 60 or level == "ERROR":
+        try:
+            with open(LOG_FILE, "a", encoding="utf-8") as f:
+                f.write("".join(_LOG_BUFFER))
+            _LOG_BUFFER = []
+            _LOG_LAST_WRITE = now
+        except Exception:
+            pass
 
 
 def log(func):
@@ -214,14 +226,16 @@ def random_event(cat: CatState):
 
 def apply_clamp(cat: CatState):
     """Применяет ограничения ко всем характеристикам."""
-    old_values = (cat["satiety"], cat["happiness"], cat["energy"], cat["health"], cat["love"], cat["money"])
+    old_values = (cat["satiety"], cat["happiness"], cat["energy"],
+                  cat["health"], cat["love"], cat["money"])
     cat["satiety"] = clamp(cat["satiety"])
     cat["happiness"] = clamp(cat["happiness"])
     cat["energy"] = clamp(cat["energy"])
     cat["health"] = clamp(cat["health"])
     cat["love"] = clamp(cat["love"])
     cat["money"] = max(0, cat["money"])
-    new_values = (cat["satiety"], cat["happiness"], cat["energy"], cat["health"], cat["love"], cat["money"])
+    new_values = (cat["satiety"], cat["happiness"], cat["energy"],
+                  cat["health"], cat["love"], cat["money"])
     if old_values != new_values:
         log_to_file("DEBUG", f"apply_clamp: {old_values} -> {new_values}")
 
