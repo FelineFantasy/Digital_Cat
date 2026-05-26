@@ -923,6 +923,7 @@ def action_settings(cat: CatState):
         clear_console()
 
     def change_speed():
+        global SCREEN_CLEAR_DELAY
         print("=" * 50)
         print(f"Текущая задержка: {SCREEN_CLEAR_DELAY} сек.")
         try:
@@ -935,8 +936,7 @@ def action_settings(cat: CatState):
                     f"Задержка очистки экрана изменена с "
                     f"{SCREEN_CLEAR_DELAY} на {new_delay}"
                 )
-                global SCREEN_CLEAR_DELAY
-                SCREEN_CLEAR_DELAY = new_delay
+                SCREEN_CLEAR_DELAY = new_delay  # убрал повторный global
                 print(
                     f"Задержка изменена на {SCREEN_CLEAR_DELAY} сек."
                 )
