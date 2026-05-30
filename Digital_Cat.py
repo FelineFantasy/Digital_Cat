@@ -9,6 +9,7 @@ import random
 import sys
 import time
 import zlib
+import platform
 from functools import wraps
 from typing import TypedDict
 
@@ -979,14 +980,35 @@ def action_settings(cat: CatState):
             continue
 
 
+def get_os_greeting():
+    """Возвращает пародийное приветствие в зависимости от ОС."""
+    system = platform.system()
+    
+    if system == "Windows":
+        return r"""
+ᵐⁱᶜʳᵒSOFT WindowsXP [Version Vista]
+(c) Корпорация маленький софт (ᵐⁱᶜʳᵒSOFT Corporation). Все права не защищены.
+"""
+    elif system == "Linux":
+        return r"""
+🐧 GNU/Linux (ОС для бородатых)
+(c) Корпорация "Всё бесплатно и с открытым кодом". Все права защищены сообществом.
+Ядро: Собрано под луной вручную из исходников.
+"""
+    elif system == "Darwin":
+        return r"""
+🍎 macOS (Дорого и красиво)
+(c) Корпорация "Яблоко надкусано". Все права защищены адвокатами и патентами.
+Версия: Вы явно переплатили за этот компьютер.
+"""
+    else:
+        return "Неизвестная ОС. Возможно, вы запустили это на тостере."
+
+
 def show_welcome_screen():
-    """Показывает заставку Windows XP/Vista."""
+    """Показывает заставку в зависимости от ОС."""
     clear_console()
-    print("ᵐⁱᶜʳᵒSOFT WindowsXP [Version Vista]")
-    print(
-        "(c) Корпорация маленький софт (ᵐⁱᶜʳᵒSOFT Corporation). "
-        "Все права не защищены."
-    )
+    print(get_os_greeting())
 
 
 def main():
