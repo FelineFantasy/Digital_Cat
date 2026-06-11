@@ -640,7 +640,6 @@ def action_shop(cat: CatState):
         elif choice in shop_actions:
             shop_actions[choice]()
         else:
-            # Не должно случиться из-за safe_choice
             continue
 
 
@@ -879,7 +878,6 @@ def action_stats(cat: CatState):
     print(f"Счастье: {cat['happiness']}")
     print(f"Энергия: {cat['energy']}")
 
-    # Цвет для здоровья
     if cat['health'] >= 70:
         health_color = GREEN
     elif cat['health'] >= 40:
@@ -1036,7 +1034,6 @@ def show_welcome_screen():
 
 def main():
     """Основная функция игры."""
-    # Очищаем лог-файл при запуске
     try:
         os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
         with open(LOG_FILE, "w", encoding="utf-8") as f:
