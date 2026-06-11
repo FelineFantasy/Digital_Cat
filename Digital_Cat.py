@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Digital Cat - игра-симулятор кота.
 """
